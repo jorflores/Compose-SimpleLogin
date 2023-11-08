@@ -46,18 +46,21 @@ fun LoginPage(navController: NavHostController) {
     val loginState = userviewModel.login.observeAsState()
 
     LaunchedEffect(key1 = loginState.value?.message) {
-        loginState.value?.let { snackbarHostState.showSnackbar(it.message) }
+        loginState.value?.let {
+            snackbarHostState.showSnackbar(it.message)
+            navController.navigate("WelcomeScreenPage")
+        }
 
     }
 
     Scaffold(
 
-    snackbarHost = {
-        SnackbarHost(
-            hostState = snackbarHostState,
-            modifier = Modifier.padding(16.dp)
-        )
-    }
+        snackbarHost = {
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
 
     ) {
 

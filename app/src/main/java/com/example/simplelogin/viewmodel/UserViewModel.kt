@@ -49,6 +49,21 @@ class UserViewModel(private val userService: UserService): ViewModel() {
             }
             catch (e: HttpException){
 
+                when(e.code()){
+
+                    401 -> {
+                        val errorMessage = "Credenciales Incorrectas"
+                        val response = LoginUserResponse(false,errorMessage,"")
+                        _login.value = response
+                    }
+                    else ->{
+                        val errorMessage = e.message()
+                        val response = LoginUserResponse(false,errorMessage,"")
+                        _login.value = response
+                    }
+
+                }
+
                 Log.e("ERROR-API", "A Http exception error has ocurred: ${e.message}")
 
             }
